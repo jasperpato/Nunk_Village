@@ -3,6 +3,10 @@
 [ext_resource type="Script" uid="uid://iaadxyt5y0r2" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://dtkljihx4rxyh" path="res://mob.tscn" id="2_1bvp3"]
 [ext_resource type="PackedScene" uid="uid://bydgq1bvyaibu" path="res://player.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://bp8pooq3pfo2x" path="res://hud.tscn" id="4_1bvp3"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_1bvp3"]
+load_path = "res://.godot/imported/IMG_3543.jpeg-ac1f5bdb8749d4823d47f23e19a12c4e.ctex"
 
 [sub_resource type="Curve2D" id="Curve2D_1bvp3"]
 _data = {
@@ -13,6 +17,23 @@ point_count = 5
 [node name="Main" type="Node" unique_id=556923087]
 script = ExtResource("1_0xm2m")
 mob_scene = ExtResource("2_1bvp3")
+
+[node name="Control" type="Control" parent="." unique_id=931712791]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="Control" unique_id=1301243072]
+layout_mode = 0
+offset_right = 4032.0
+offset_bottom = 3024.0
+rotation = 1.5707964
+scale = Vector2(0.2, 0.2)
+pivot_offset = Vector2(480, 0)
+texture = SubResource("CompressedTexture2D_1bvp3")
 
 [node name="Player" parent="." unique_id=1347917260 instance=ExtResource("2_h2yge")]
 
@@ -33,7 +54,10 @@ curve = SubResource("Curve2D_1bvp3")
 
 [node name="MobSpawnLocation" type="PathFollow2D" parent="MobPath" unique_id=1412667201]
 
+[node name="HUD" parent="." unique_id=1230890886 instance=ExtResource("4_1bvp3")]
+
 [connection signal="hit" from="Player" to="." method="game_over"]
 [connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
 [connection signal="timeout" from="ScoreTimer" to="." method="_on_score_timer_timeout"]
 [connection signal="timeout" from="StartTimer" to="." method="_on_start_timer_timeout"]
+[connection signal="start_game" from="HUD" to="." method="new_game"]
